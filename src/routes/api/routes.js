@@ -12,5 +12,6 @@ router.get('/api', (req, res) => {
 
 router.use('/api', require('../../service_sensor/routes'));
 router.use('/api', require('../../service_user/routes'));
+router.use('/api', require('../../service_location/routes'));
 
 module.exports = router;

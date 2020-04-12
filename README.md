@@ -11,7 +11,7 @@ copy .env sample into .env file and update variable values
 
 ### migrations
 
-    sequelize migration:generate -- name [migration file name]
+    sequelize migration:generate --name [migration file name]
     sequelize db:migrate
 
 ### seeders
