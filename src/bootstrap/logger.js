@@ -34,4 +34,4 @@ logger.add(
   })
 )
 
-module.exports = logger;
+module.exports.logger = logger;
