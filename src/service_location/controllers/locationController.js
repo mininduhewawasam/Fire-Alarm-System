@@ -45,13 +45,88 @@ module.exports.getAllLocations = async function (req, res) {
     }
 };
 
+module.exports.createFloor = async function (req, res) {
+    const { error } = _validateCreateFloor(req.body);
+    if (!error) {
+        const LocationServiceInstance = new LocationService();
+        const floor = await LocationServiceInstance.createFloor(req.body);
+        switch (floor) {
+            case Enums.ErrorResponses.DATA_ERROR:
+                res.status(400);
+                res.json({ msg: 'Location not found'});
+                break;
+            case Enums.ErrorResponses.SERVER_ERROR:
+                res.status(500);
+                res.json({ msg: 'Something went wrong'});
+                break;
+            default:
+                res.status(200);
+                res.json({ data: floor });
+                break
+        }
+    } else {
+        res.status(400);
+        res.json({ msg: error.details[0].message });
+    }
+};
+
+module.exports.getAllFloors = async function (req, res) {
+
+    const LocationServiceInstance = new LocationService();
+    const floors = await LocationServiceInstance.getAllFloors();
+    switch (floors) {
+        case Enums.ErrorResponses.SERVER_ERROR:
+            res.status(500);
+            res.json({ msg: 'Something went wrong'});
+            break;
+        default:
+            res.status(200);
+            res.json({ data: floors });
+            break
+    }
+};
+
+module.exports.getFloorsByLocationId = async function (req, res) {
+
+    const LocationServiceInstance = new LocationService();
+    const floors = await LocationServiceInstance.getFloorsByLocationId(
+        req.params.locationId
+    );
+    switch (floors) {
+        case Enums.ErrorResponses.DATA_ERROR:
+            res.status(400);
+            res.json({ msg: 'Location not found'});
+            break;
+        case Enums.ErrorResponses.SERVER_ERROR:
+            res.status(500);
+            res.json({ msg: 'Something went wrong'});
+            break;
+        default:
+            res.status(200);
+            res.json({ data: floors });
+            break
+    }
+};
+
 function _validateCreateLocation(location) {
  const schema = {
     ownerId: Joi.number().required(),
     name: Joi.string().required(),
     address: Joi.string().required(),
-    noOfFloors: Joi.number().required()
+    noOfFloors: Joi.number().required(),
+    modifiedBy: Joi.allow()
  };
  return Joi.validate(location, schema);
 }
+
+function _validateCreateFloor(floor) {
+    const schema = {
+       locationId: Joi.number().required(),
+       name: Joi.string().required(),
+       floorNo: Joi.number().required(),
+       noOfRooms: Joi.number().required(),
+       modifiedBy: Joi.allow()
+    };
+    return Joi.validate(floor, schema);
+   }
 

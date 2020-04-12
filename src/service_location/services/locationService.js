@@ -38,6 +38,64 @@ class LocationService {
         }
     }
 
+    async createFloor(floorData) {
+        try {
+            const location = await this._getLocationById (floorData.locationId);
+            if (location) {
+                const floor = await this._createFloor(floorData);
+                if (floor) {
+                    return floor;
+                } else {
+                    return Enums.ErrorResponses.DATA_ERROR;
+                }
+            } else {
+                return Enums.ErrorResponses.DATA_ERROR;
+            }
+        } catch (e) {
+            logger.error('LocationService.createLocation ' + e);
+            return Enums.ErrorResponses.SERVER_ERROR
+        }
+    }
+
+    async getAllFloors () {
+        try {
+            const locations = await this._getAllFloors();
+            return locations;       
+        } catch (e) {
+            logger.error('LocationService.getAllLocations ' + e);
+            return Enums.ErrorResponses.SERVER_ERROR;
+        }
+    }
+
+    async getFloorsByLocationId (locationId) {
+        try {
+            const location = await this._getLocationById(locationId);
+            if (location) {
+                const floor = await this._getFloorsByLocationId(locationId);
+                return floor;                
+            } else {
+                return Enums.ErrorResponses.DATA_ERROR;
+            }
+        } catch (e) {
+            logger.error('LocationService.getAllLocations ' + e);
+            return Enums.ErrorResponses.SERVER_ERROR;
+        }
+    }
+
+    async _getFloorsByLocationId (locationId) {
+        const floor = Floor.findAll({
+            where: { locationId: locationId },
+            attributes: ['id', 'name', 'floorNo', 'noOfRooms']
+        });
+    }
+
+    async _getAllFloors () {
+        const floors = Floor.findAll({
+            attributes: ['id', 'name', 'floorNo', 'noOfRooms']
+        });
+        return floors;
+    }
+
     async _getAllLocations (args) {
         const options = {
             order: [['id', 'DESC']]
@@ -65,6 +123,11 @@ class LocationService {
         return location;
     }
 
+    async _createFloor (floorData) {
+        const floor = await Floor.create(floorData)
+        return floor;
+    }
+
     async _getUserById(ownerId) {
         const user = User.findOne({
             where: { id: ownerId }
@@ -73,6 +136,13 @@ class LocationService {
         return user;
     }
 
+    async _getLocationById(locationId) {
+        const location = Location.findOne({
+            where: { id: locationId }
+        });
+        
+        return location;
+    }
 
 }
 
