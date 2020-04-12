@@ -18,9 +18,9 @@ class UserService {
             } else {
                 const hashPass = await this._generatePAsswordHash(userData.password);
                 userData.password = hashPass;
-                const newUser = await this._createUser(userData);
+                const User = await this._createUser(userData);
             }
-            return newUser;
+            return User;
             
         } catch (e) {
             logger.error('UserService.registerUser' + e);
