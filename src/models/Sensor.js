@@ -9,6 +9,13 @@ module.exports = (sequelize, DataTypes) => {
         {
             paranoid: true,
         }
-    )
+    );
+    Sensor.associate = function (models) {
+        Sensor.hasMany(models.SensorData, { foreignKey: 'sensorId' });
+        Sensor.belongsTo(models.Room, { foreignKey: 'roomId' });
+        Sensor.belongsTo(models.User, { foreignKey: 'ownerId' });
+        Sensor.belongsTo(models.Location, { foreignKey: 'locationId' });
+        Sensor.belongsTo(models.Floor, { foreignKey: 'floorId' });
+      };
     return Sensor;
 };

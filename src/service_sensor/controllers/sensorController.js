@@ -37,7 +37,7 @@ module.exports.createSensorData = async function (req, res) {
         switch (sensor) {
             case Enums.ErrorResponses.DATA_ERROR:
                 res.status(400);
-                res.json({ msg: 'Location not found'});
+                res.json({ msg: 'Sensor not found'});
                 break;
             case Enums.ErrorResponses.SERVER_ERROR:
                 res.status(500);
@@ -53,10 +53,28 @@ module.exports.createSensorData = async function (req, res) {
         res.json({ msg: error.details[0].message });
     }
 };
+
+module.exports.getAllSensors = async function (req, res) {
+    const SensorServiceInstance = new SensorService();
+    const sensor = await SensorServiceInstance.getAllSensors(req.query);
+    switch (sensor) {
+        case Enums.ErrorResponses.SERVER_ERROR:
+            res.status(500);
+            res.json({ msg: 'Something went wrong'});
+            break;
+        default:
+            res.status(200);
+            res.json({ data: sensor });
+            break
+    }
+};
     
 function _validatecreateNewSensor(sensor) {
     const schema = {
         roomId: Joi.number().required(),
+        ownerId: Joi.number().required(),
+        locationId: Joi.number().required(),
+        floorId: Joi.number().required(),
         modifiedBy: Joi.allow()
     };
     return Joi.validate(sensor, schema);
