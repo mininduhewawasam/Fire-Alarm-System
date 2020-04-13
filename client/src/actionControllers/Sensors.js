@@ -17,9 +17,9 @@ const sensorsCreated = data => ({
 export const fetchSensors = () => dispatch =>
   api.sensors
     .fetchAll()
-    .then(sensors => dispatch(booksFetched(normalize(sensors, [sensorSchema]))));
+    .then(sensors => dispatch(sensorsFetched(normalize(sensors, [sensorSchema]))));
 
 export const createsensor = data => dispatch =>
   api.sensors
     .create(data)
-    .then(sensor => dispatch(bookCreated(normalize(sensor, sensorSchema))));
+    .then(sensor => dispatch(sensorsCreated(normalize(sensor, sensorSchema))));

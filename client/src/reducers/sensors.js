@@ -1,5 +1,5 @@
 import { createSelector } from "reselect";
-import { BOOKS_FETCHED, BOOK_CREATED } from "../types";
+import { SENSORS_FETCHED, SENSORS_CREATED } from "../types";
 
 export default function sensors(state = {}, action = {}) {
   switch (action.type) {
@@ -15,6 +15,6 @@ export default function sensors(state = {}, action = {}) {
 
 export const sensorSelector = state => state.sensors;
 
-export const allSensorsSelector = createSelector(sensorsSelector, sensorHash =>
+export const allSensorsSelector = createSelector(sensorSelector, sensorHash =>
   Object.values(sensorHash)
 );

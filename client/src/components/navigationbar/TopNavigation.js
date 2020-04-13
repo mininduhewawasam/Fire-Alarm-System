@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import gravatarUrl from "gravatar-url";
 import * as actions from "../../actionControllers/auth";
-import { allBooksSelector } from "../../reducers/books";
+import { allSensorsSelector } from "../../reducers/sensors";
 
 const TopNavigation = ({ user, logout, hasSensors }) => (
   <Menu secondary pointing>
