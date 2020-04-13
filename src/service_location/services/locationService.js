@@ -40,7 +40,7 @@ class LocationService {
 
     async createFloor(floorData) {
         try {
-            const location = await this._getLocationById (floorData.locationId);
+            const location = await this._getLocationById (floorData.floorId);
             if (location) {
                 const floor = await this._createFloor(floorData);
                 if (floor) {
@@ -82,11 +82,72 @@ class LocationService {
         }
     }
 
+    async createRoom(roomData) {
+        try {
+            const floor = await this._getFloorById (roomData.floorId);
+            if (floor) {
+                const room = await this._createRoom(roomData);
+                if (room) {
+                    return room;
+                } else {
+                    return Enums.ErrorResponses.DATA_ERROR;
+                }
+            } else {
+                return Enums.ErrorResponses.DATA_ERROR;
+            }
+        } catch (e) {
+            logger.error('LocationService.createLocation ' + e);
+            return Enums.ErrorResponses.SERVER_ERROR
+        }
+    }
+
+    async getRoomsByLocationIdAndFloorId (locationId, floorId) {
+        try {
+            const location = await this._getLocationById(locationId);
+            if (location) {
+                const floor = await this._getFloorById(floorId);
+                if (floor) {
+                    const rooms = await this._getRoomsByLocationIdAndFloorId(locationId, floorId);
+                    return rooms;
+                } else {
+                    return Enums.ErrorResponses.DATA_ERROR;
+                }       
+            } else {
+                return Enums.ErrorResponses.DATA_ERROR;
+            }
+        } catch (e) {
+            logger.error('LocationService.getAllLocations ' + e);
+            return Enums.ErrorResponses.SERVER_ERROR;
+        }
+    }
+
+    async _getRoomsByLocationIdAndFloorId (locationId, floorId) {
+        const rooms = Room.findAll({
+            attributes: ['id', 'name', 'roomNo', 'noOfSensors'],
+            include: [
+                {
+                    model: Floor,
+                    where: { id: floorId },
+                    attributes: ['id', 'locationId', 'name', 'floorNo', 'noOfRooms'],
+                    include: [
+                        {
+                            model: Location,
+                            where: { id: locationId },
+                            attributes: ['id', 'name']
+                        }
+                    ]
+                }
+            ]
+        });
+        return rooms;
+    }
+
     async _getFloorsByLocationId (locationId) {
         const floor = Floor.findAll({
             where: { locationId: locationId },
             attributes: ['id', 'name', 'floorNo', 'noOfRooms']
         });
+        return floor;
     }
 
     async _getAllFloors () {
@@ -128,6 +189,11 @@ class LocationService {
         return floor;
     }
 
+    async _createRoom (roomData) {
+        const room = await Room.create(roomData)
+        return room;
+    }
+
     async _getUserById(ownerId) {
         const user = User.findOne({
             where: { id: ownerId }
@@ -144,6 +210,13 @@ class LocationService {
         return location;
     }
 
+    async _getFloorById(floorId) {
+        const floor = Floor.findOne({
+            where: { id: floorId }
+        });
+        
+        return floor;
+    }
 }
 
 module.exports = LocationService;

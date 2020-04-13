@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
         {
             paranoid: true,
         }
-    )
+    );
+    Room.associate = function (models) {
+        Room.belongsTo(models.Floor, { foreignKey: 'floorId' });
+      };
     return Room;
 };

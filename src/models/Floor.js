@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
         {
             paranoid: true,
         }
-    )
+    );
+    Floor.associate = function (models) {
+        Floor.belongsTo(models.Location, { foreignKey: 'locationId' });
+      };
     return Floor;
 };

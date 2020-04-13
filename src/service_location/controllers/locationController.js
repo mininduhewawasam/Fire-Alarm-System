@@ -70,6 +70,31 @@ module.exports.createFloor = async function (req, res) {
     }
 };
 
+module.exports.createRoom = async function (req, res) {
+    const { error } = _validateCreateRoom(req.body);
+    if (!error) {
+        const LocationServiceInstance = new LocationService();
+        const room = await LocationServiceInstance.createRoom(req.body);
+        switch (room) {
+            case Enums.ErrorResponses.DATA_ERROR:
+                res.status(400);
+                res.json({ msg: 'Location not found'});
+                break;
+            case Enums.ErrorResponses.SERVER_ERROR:
+                res.status(500);
+                res.json({ msg: 'Something went wrong'});
+                break;
+            default:
+                res.status(200);
+                res.json({ data: room });
+                break
+        }
+    } else {
+        res.status(400);
+        res.json({ msg: error.details[0].message });
+    }
+};
+
 module.exports.getAllFloors = async function (req, res) {
 
     const LocationServiceInstance = new LocationService();
@@ -108,6 +133,29 @@ module.exports.getFloorsByLocationId = async function (req, res) {
     }
 };
 
+module.exports.getRoomsByLocationIdAndFloorId = async function (req, res) {
+
+    const LocationServiceInstance = new LocationService();
+    const rooms = await LocationServiceInstance.getRoomsByLocationIdAndFloorId(
+        req.params.locationId,
+        req.params.floorId
+    );
+    switch (rooms) {
+        case Enums.ErrorResponses.DATA_ERROR:
+            res.status(400);
+            res.json({ msg: 'Rooms not found'});
+            break;
+        case Enums.ErrorResponses.SERVER_ERROR:
+            res.status(500);
+            res.json({ msg: 'Something went wrong'});
+            break;
+        default:
+            res.status(200);
+            res.json({ data: rooms });
+            break
+    }
+};
+
 function _validateCreateLocation(location) {
  const schema = {
     ownerId: Joi.number().required(),
@@ -128,5 +176,16 @@ function _validateCreateFloor(floor) {
        modifiedBy: Joi.allow()
     };
     return Joi.validate(floor, schema);
+   }
+
+   function _validateCreateRoom(room) {
+    const schema = {
+       floorId: Joi.number().required(),
+       name: Joi.string().required(),
+       roomNo: Joi.number().required(),
+       noOfSensors: Joi.number().required(),
+       modifiedBy: Joi.allow()
+    };
+    return Joi.validate(room, schema);
    }
 

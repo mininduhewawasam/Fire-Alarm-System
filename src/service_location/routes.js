@@ -10,16 +10,22 @@ router.post('/location',
 
 router.post('/floor',
 [auth],
-LocationrController.createFloor)
+LocationrController.createFloor);
+
+router.post('/room',
+[auth],
+LocationrController.createRoom);
 
 router.get('/floor/:locationId',
 LocationrController.getFloorsByLocationId);
+
+router.get('/room/:locationId/:floorId',
+LocationrController.getRoomsByLocationIdAndFloorId);
 
 router.get('/floor',
 LocationrController.getAllFloors);
 
 router.get('/location',
 LocationrController.getAllLocations);
-
 
 module.exports = router;
