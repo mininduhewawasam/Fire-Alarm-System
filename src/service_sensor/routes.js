@@ -5,7 +5,11 @@ const SensorController = require('./controllers/sensorController');
 const auth = require('../middleware/auth');
 
 router.post('/sensor-data',
-SensorController.create
+SensorController.createSensorData
+);
+
+router.post('/sensor',
+SensorController.createNewSensor
 );
 
 module.exports = router;

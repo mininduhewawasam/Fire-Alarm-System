@@ -52,7 +52,7 @@ class LocationService {
                 return Enums.ErrorResponses.DATA_ERROR;
             }
         } catch (e) {
-            logger.error('LocationService.createLocation ' + e);
+            logger.error('LocationService.createFloor ' + e);
             return Enums.ErrorResponses.SERVER_ERROR
         }
     }
@@ -62,7 +62,7 @@ class LocationService {
             const locations = await this._getAllFloors();
             return locations;       
         } catch (e) {
-            logger.error('LocationService.getAllLocations ' + e);
+            logger.error('LocationService.getAllFloors ' + e);
             return Enums.ErrorResponses.SERVER_ERROR;
         }
     }
@@ -77,7 +77,7 @@ class LocationService {
                 return Enums.ErrorResponses.DATA_ERROR;
             }
         } catch (e) {
-            logger.error('LocationService.getAllLocations ' + e);
+            logger.error('LocationService.getFloorsByLocationId ' + e);
             return Enums.ErrorResponses.SERVER_ERROR;
         }
     }
@@ -96,7 +96,7 @@ class LocationService {
                 return Enums.ErrorResponses.DATA_ERROR;
             }
         } catch (e) {
-            logger.error('LocationService.createLocation ' + e);
+            logger.error('LocationService.createRoom ' + e);
             return Enums.ErrorResponses.SERVER_ERROR
         }
     }
@@ -116,7 +116,7 @@ class LocationService {
                 return Enums.ErrorResponses.DATA_ERROR;
             }
         } catch (e) {
-            logger.error('LocationService.getAllLocations ' + e);
+            logger.error('LocationService.getRoomsByLocationIdAndFloorId ' + e);
             return Enums.ErrorResponses.SERVER_ERROR;
         }
     }

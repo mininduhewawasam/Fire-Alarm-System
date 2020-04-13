@@ -4,10 +4,7 @@ module.exports = (sequelize, DataTypes) => {
         'Sensor',
         {
             status: DataTypes.INTEGER,
-            roomId: DataTypes.INTEGER,
-            roomNo: DataTypes.INTEGER,
-            co2Level: DataTypes.INTEGER,
-            smokeLevel: DataTypes.INTEGER
+            roomId: DataTypes.INTEGER
         },
         {
             paranoid: true,
