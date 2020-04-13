@@ -1,24 +1,49 @@
-import React from 'react';
+import React from "react";
+import { connect } from "react-redux";
+import { Route } from "react-router-dom";
+import PropTypes from "prop-types";
+import LoginPage from "./components/user-login/LoginPage";
+import DashboardPage from "./components/home/DashboardPage";
+import SignupPage from "./components/user-register/SignupPage";
+import UserRoute from "./routes/UserRoute";
+import GuestRoute from "./routes/GuestRoute";
+import TopNavigation from "./components/navigationbar/TopNavigation";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = ({ location, isAuthenticated }) => (
+  <div className="ui container">
+    {isAuthenticated && <TopNavigation />}
+
+    <Route location={location} path="/" exact component={LoginPage} />
+
+    <GuestRoute
+      location={location}
+      path="/signup"
+      exact
+      component={SignupPage}
+    />
+
+    <UserRoute
+      location={location}
+      path="/dashboard"
+      exact
+      component={DashboardPage}
+    />
+    
+  </div>
+);
+
+App.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired
+  }).isRequired,
+  isAuthenticated: PropTypes.bool.isRequired
+};
+
+function mapStateToProps(state) {
+  return {
+    isAuthenticated: !!state.user.email
+  };
 }
 
-export default App;
+export default connect(mapStateToProps)(App);

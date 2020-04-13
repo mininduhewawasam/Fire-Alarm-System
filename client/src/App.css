@@ -1,0 +1,16 @@
+
+.login-square {
+  width: 300px;
+  height: 300px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.login-heading{
+  position: absolute;
+  left: 32%;
+  top: 10%;
+  text-align: center;
+  color: darkred;
+}

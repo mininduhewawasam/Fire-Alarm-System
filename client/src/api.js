@@ -11,9 +11,9 @@ export default {
         .post("/api/auth/confirmation", { token })
         .then(res => res.data.user),
   },
-  books: {
-    fetchAll: () => axios.get("/api/books").then(res => res.data.books),
-    create: book =>
-      axios.post("/api/books", { book }).then(res => res.data.book)
+  sensors: {
+    fetchAll: () => axios.get("/api/sensors").then(res => res.data.books),
+    create: sensor =>
+      axios.post("/api/sensor", { sensor }).then(res => res.data.book)
   }
 };
