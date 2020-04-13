@@ -40,7 +40,7 @@ class LocationService {
 
     async createFloor(floorData) {
         try {
-            const location = await this._getLocationById (floorData.floorId);
+            const location = await this._getLocationById (floorData.locationId);
             if (location) {
                 const floor = await this._createFloor(floorData);
                 if (floor) {

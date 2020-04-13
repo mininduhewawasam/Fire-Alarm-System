@@ -5,7 +5,7 @@ const User = require('../../models').User;
 const Floor = require('../../models').Floor;
 const Room = require('../../models').Room;
 const Sensor = require('../../models').Sensor;
-const SensorData = require('../../models').SensorData
+const SensorData = require('../../models').SensorData;
 const { logger } = require('../../bootstrap/logger');
 const Enums = require('../../base_classes/Enums');
 
@@ -48,6 +48,60 @@ class SensorService {
             logger.error('LocationService.createSensorData ' + e);
             return Enums.ErrorResponses.SERVER_ERROR
         }
+    }
+
+    async getAllSensors(args) {
+        try {
+            const locations = await this._getAllSensors(args);
+            return locations;       
+        } catch (e) {
+            logger.error('LocationService.getAllSensors ' + e);
+            return Enums.ErrorResponses.SERVER_ERROR
+        }
+    }
+
+    async _getAllSensors (args) {
+        const options = {
+            order: [['id', 'DESC']]
+        };
+        const whereUserObj = {}
+        const whereObj = {};
+        if (args.sensorID) {
+            whereObj.sensorId = args.sensorId;
+        }
+        if (args.userId) {
+            whereUserObj.ownerId = args.userId;
+        }
+        if (whereObj) {
+            options.where = whereObj;
+        }
+        options.include = [
+            {
+                model: SensorData,
+                attributes: ['id', 'sensorId', 'co2Level', 'smokeLevel'],
+                order: [['id', 'DESC']],
+                limit: 1
+            },
+            {
+                model: User,
+                attributes: ['id', 'firstName', 'lastName', 'email', 'phoneNumber']
+            },
+            {
+                model: Room,
+                attributes: ['id', 'name', 'roomNo', 'noOfSensors'],
+            },
+            {
+                model: Floor,
+                attributes: ['id', 'name', 'floorNo', 'noOfRooms'],
+            },
+            {
+                model: Location,
+                attributes: ['id', 'name', 'address', 'noOfFloors'],
+                where: whereUserObj,
+            }
+        ]
+        const sensor = await Sensor.findAll(options);
+        return { sensor }
     }
 
     async _getRoomById(roomId) {
