@@ -1,9 +1,9 @@
 import React from "react";
 
 class DashboardPage extends React.Component {
-  componentDidMount = () => this.onInit(this.props);
+  // componentDidMount = () => this.onInit(this.props);
 
-  onInit = props => props.fetchSensors();
+  // onInit = props => props.fetchSensors();
 
   render() {
     return (
