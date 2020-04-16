@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import LoginForm from "./Login";
 import { login } from "../../actionControllers/auth";
+import './login.css';
 
 class LoginPage extends React.Component {
   submit = data =>
@@ -11,12 +12,15 @@ class LoginPage extends React.Component {
   render() {
     return (
       <div>
-        <h1 className="login-heading">
-          Welcome to Fire alarm monitoring system
-        </h1>
-        <div className="login-square">
-          <h2>Login</h2>
-          <LoginForm submit={this.submit} />
+          <h1 className="login-heading">Welcome to Fire Alarm Monitoring System</h1>
+        <img className="wave" src={`/images/login/wave.png`} alt="Wave" />
+        <div className="container-fire-login">
+          <div className="img">
+              <img src={`/images/login/bg1.svg`} alt="BG"/>
+          </div>
+          <div className="login-content">
+              <LoginForm submit={this.submit} />
+          </div>
         </div>
       </div>
     );

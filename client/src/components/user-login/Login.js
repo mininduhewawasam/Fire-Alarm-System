@@ -41,40 +41,54 @@ class LoginForm extends React.Component {
 
   render() {
     const { data, errors, loading } = this.state;
-
     return (
       <Form onSubmit={this.onSubmit} loading={loading}>
+        <img src={`/images/login/profile1.svg`} alt="Profile" />
+        <h2 className="title">Login</h2>
         {errors.msg && (
           <Message negative>
             <Message.Header>Something went wrong</Message.Header>
             <p>{errors.msg}</p>
           </Message>
         )}
-        <Form.Field error={!!errors.email}>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="example@example.com"
-            value={data.email}
-            onChange={this.onChange}
-          />
-          {errors.email && <InlineError text={errors.email} />}
-        </Form.Field>
-        <Form.Field error={!!errors.password}>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Make it secure"
-            value={data.password}
-            onChange={this.onChange}
-          />
-          {errors.password && <InlineError text={errors.password} />}
-        </Form.Field>
-        <Button primary>Login</Button>
+
+        <div className={`input-div one`} >
+          <div className="i">
+            <i className="fas fa-user"></i>
+          </div>
+          <div className="div">
+            <Form.Field error={!!errors.email}>
+              <input
+                  placeholder="Email"
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={data.email}
+                  onChange={this.onChange}
+              />
+              {errors.email && <InlineError text={errors.email} />}
+            </Form.Field>
+          </div>
+        </div>
+        <div className={`input-div pass`}>
+          <div className="i">
+            <i className="fas fa-lock"></i>
+          </div>
+          <div className="div">
+            <Form.Field error={!!errors.password}>
+              <input
+                  placeholder="password"
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={data.password}
+                  onChange={this.onChange}
+              />
+              {errors.password && <InlineError text={errors.password} />}
+            </Form.Field>
+          </div>
+        </div>
+        <Button className="fire-login-btn">Login</Button>
       </Form>
     );
   }
