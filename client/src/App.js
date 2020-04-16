@@ -11,26 +11,26 @@ import TopNavigation from "./components/navigationbar/TopNavigation";
 import "./App.css";
 
 const App = ({ location, isAuthenticated }) => (
-  <div className="ui container">
-    {isAuthenticated && <TopNavigation />}
+    <div className="ui container ">
+        <Route location={location} path="/" exact component={LoginPage} />
 
-    <Route location={location} path="/" exact component={LoginPage} />
+        <GuestRoute
+            location={location}
+            path="/signup"
+            exact
+            component={SignupPage}
+        />
 
-    <GuestRoute
-      location={location}
-      path="/signup"
-      exact
-      component={SignupPage}
-    />
-
-    <UserRoute
-      location={location}
-      path="/dashboard"
-      exact
-      component={DashboardPage}
-    />
-    
-  </div>
+        {isAuthenticated && <TopNavigation />}
+        <div className="main-content-wrapper">
+            <UserRoute
+            location={location}
+            path="/dashboard"
+            exact
+            component={DashboardPage}
+            />
+        </div>
+    </div>
 );
 
 App.propTypes = {

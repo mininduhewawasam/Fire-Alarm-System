@@ -1,1 +1,22 @@
+.logout p{
+    cursor: pointer;
+}
 
+.TopNavigation{
+    min-height: 100vh;
+    background: #e25822;
+    position: fixed;
+    padding: 0 !important;
+    width: 120px;
+    top:0;
+    left:0;
+    bottom: 0;
+}
+
+.main-content-wrapper{
+    margin: 0 0 0 120px;
+}
+
+.tabular.menu .item{
+    color:#fff !important;
+}
