@@ -20,7 +20,7 @@ export const login = credentials => dispatch =>
   });
 
 export const logout = () => dispatch => {
-  localStorage.removeItem("bookwormJWT");
+  localStorage.clear();
   setAuthorizationHeader();
   dispatch(userLoggedOut());
 };
