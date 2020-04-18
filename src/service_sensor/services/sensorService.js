@@ -32,7 +32,6 @@ class SensorService {
 
     async createSensorData(sensorData) {
         try {
-            console.log(sensorData);
             const sensor = await this._getSensorById (sensorData.sensorId);
             if (sensor) {
                 const sensorsData = await this._createSensorData(sensorData);

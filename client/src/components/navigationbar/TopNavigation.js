@@ -4,8 +4,6 @@ import { Menu } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as actions from "../../actionControllers/auth";
-import { allSensorsSelector } from "../../reducers/sensors";
-
 
 const TopNavigation = ({ user, logout, hasSensors }) => (
     <div className="TopNavigation">
@@ -29,14 +27,14 @@ TopNavigation.propTypes = {
   user: PropTypes.shape({
     email: PropTypes.string.isRequired
   }).isRequired,
-  hasSensors: PropTypes.bool.isRequired,
+  sensors: PropTypes.bool.isRequired,
   logout: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
   return {
     user: state.user,
-    hasSensors: allSensorsSelector(state).length > 0
+    sensors: state.sensors
   };
 }
 

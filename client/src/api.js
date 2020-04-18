@@ -12,7 +12,7 @@ export default {
         .then(res => res.data.user),
   },
   sensors: {
-    fetchAll: () => axios.get("/api/sensors").then(res => res.data.books),
+    fetchAll: (useId) => axios.get(`/api/sensor?sensorId=&userId=${useId}`).then(res => res.data.data.sensor),
     create: sensor =>
       axios.post("/api/sensor", { sensor }).then(res => res.data.book)
   }
