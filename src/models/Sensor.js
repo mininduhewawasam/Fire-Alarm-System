@@ -4,7 +4,10 @@ module.exports = (sequelize, DataTypes) => {
         'Sensor',
         {
             status: DataTypes.INTEGER,
-            roomId: DataTypes.INTEGER
+            roomId: DataTypes.INTEGER,
+            ownerId: DataTypes.INTEGER,
+            locationId: DataTypes.INTEGER,
+            floorId: DataTypes.INTEGER,
         },
         {
             paranoid: true,
