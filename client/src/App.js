@@ -4,22 +4,13 @@ import { Route } from "react-router-dom";
 import PropTypes from "prop-types";
 import LoginPage from "./components/user-login/LoginPage";
 import DashboardPage from "./components/home/DashboardPage";
-import SignupPage from "./components/user-register/SignupPage";
 import UserRoute from "./routes/UserRoute";
-import GuestRoute from "./routes/GuestRoute";
 import TopNavigation from "./components/navigationbar/TopNavigation";
 import "./App.css";
 
 const App = ({ location, isAuthenticated }) => (
     <div className="ui container ">
         <Route location={location} path="/" exact component={LoginPage} />
-
-        <GuestRoute
-            location={location}
-            path="/signup"
-            exact
-            component={SignupPage}
-        />
 
         {isAuthenticated && <TopNavigation />}
         <div className="main-content-wrapper">

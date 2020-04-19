@@ -1,18 +1,11 @@
-import { normalize } from "normalizr";
-import { SENSORS_FETCHED, SENSORS_CREATED } from "../types";
+import { SENSORS_FETCHED } from "../types";
 import api from "../api";
-import { sensorSchema } from "../schemas";
 
-// data.entities.books
 const sensorsFetched = (data) => ({
   type: SENSORS_FETCHED,
   data,
 });
 
-const sensorsCreated = (data) => ({
-  type: SENSORS_CREATED,
-  data,
-});
 
 export const fetchSensors = () => (dispatch) =>
   api.sensors.fetchAll(localStorage.userId).then((sensors) => {
@@ -36,10 +29,3 @@ export const fetchSensors = () => (dispatch) =>
     });
     dispatch(sensorsFetched(sensorBundle));
   });
-
-export const createsensor = (data) => (dispatch) =>
-  api.sensors
-    .create(data)
-    .then((sensor) =>
-      dispatch(sensorsCreated(normalize(sensor, sensorSchema)))
-    );

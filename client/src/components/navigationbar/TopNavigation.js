@@ -14,11 +14,6 @@ const TopNavigation = ({ user, logout, hasSensors }) => (
             <Menu.Item as={Link} to="/dashboard">
               Dashboard
             </Menu.Item>
-            {hasSensors && (
-              <Menu.Item as={Link} to="/books/new" >
-                Add New Sensor
-              </Menu.Item>
-            )}
         </Menu>
     </div>
 );
