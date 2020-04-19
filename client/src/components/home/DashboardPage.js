@@ -27,13 +27,13 @@ class DashboardPage extends React.Component {
                         <Image
                           floated="right"
                           size="mini"
-                          src="add gree image"
+                          src="/active.jpg"
                         />
                       ) : (
                         <Image
                           floated="right"
                           size="mini"
-                          src="add red image"
+                          src="/Inactive.png"
                         />
                       )}
                       <Card.Header>{sensor.sensorName ? sensor.sensorName : "N/A"}</Card.Header>
