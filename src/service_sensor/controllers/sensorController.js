@@ -68,6 +68,56 @@ module.exports.getAllSensors = async function (req, res) {
             break
     }
 };
+
+module.exports.updateSensor = async function (req, res) {
+    const { error } = _validateUpdateSensor(req.body);
+    if (!error) {
+        const SensorServiceInstance = new SensorService();
+        const sensor = await SensorServiceInstance.updateSensor(req.body);
+        switch (sensor) {
+            case Enums.ErrorResponses.DATA_ERROR:
+                res.status(400);
+                res.json({ msg: 'Sensor not found'});
+                break;
+            case Enums.ErrorResponses.SERVER_ERROR:
+                res.status(500);
+                res.json({ msg: 'Something went wrong'});
+                break;
+            default:
+                res.status(200);
+                res.json({ data: sensor });
+                break
+        }
+    } else {
+        res.status(400);
+        res.json({ msg: error.details[0].message });
+    }
+};
+
+module.exports.deleteSensor = async function (req, res) {
+    const { error } = _validatedeleteSensor(req.body);
+    if (!error) {
+        const SensorServiceInstance = new SensorService();
+        const sensor = await SensorServiceInstance.deleteSensor(req.body);
+        switch (sensor) {
+            case Enums.ErrorResponses.DATA_ERROR:
+                res.status(400);
+                res.json({ msg: 'sensor not found'});
+                break;
+            case Enums.ErrorResponses.SERVER_ERROR:
+                res.status(500);
+                res.json({ msg: 'Something went wrong'});
+                break;
+            default:
+                res.status(200);
+                res.json({ data: sensor });
+                break
+        }
+    } else {
+        res.status(400);
+        res.json({ msg: error.details[0].message });
+    }
+};
     
 function _validatecreateNewSensor(sensor) {
     const schema = {
@@ -75,6 +125,28 @@ function _validatecreateNewSensor(sensor) {
         ownerId: Joi.number().required(),
         locationId: Joi.number().required(),
         floorId: Joi.number().required(),
+        name: Joi.string().required(),
+        modifiedBy: Joi.allow()
+    };
+    return Joi.validate(sensor, schema);
+}
+
+function _validatedeleteSensor(sensor) {
+    const schema = {
+        sensorId: Joi.number().required(),
+        modifiedBy: Joi.allow()
+    };
+    return Joi.validate(sensor, schema);
+}
+
+function _validateUpdateSensor(sensor) {
+    const schema = {
+        sensorId: Joi.number().required(),
+        roomId: Joi.number().required(),
+        ownerId: Joi.number().required(),
+        locationId: Joi.number().required(),
+        floorId: Joi.number().required(),
+        name: Joi.string().required(),
         modifiedBy: Joi.allow()
     };
     return Joi.validate(sensor, schema);
