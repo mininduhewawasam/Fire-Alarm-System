@@ -1,35 +1,38 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { fetchSensors } from "../../actionControllers/sensors";
 
 class DashboardPage extends React.Component {
-  // componentDidMount = () => this.onInit(this.props);
+  state = {
+    data: {
+      sensors: this.props.sensors,
+    },
+    errors: {},
+  };
 
-  // onInit = props => props.fetchSensors();
+  componentDidMount = () => this.onInit(this.props);
+  onInit = (props) => props.fetchSensors();
 
   render() {
-    return (
-      <div>
-        Hi Malith
-      </div>
-    );
+    console.log(this.state.sensors);
+    return <di></di>;
   }
 }
 
-// DashboardPage.propTypes = {
-//   isConfirmed: PropTypes.bool.isRequired,
-//   fetchSensors: PropTypes.func.isRequired,
-//   sensors: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       title: PropTypes.string.isRequired
-//     }).isRequired
-//   ).isRequired
-// };
+DashboardPage.propTypes = {
+  fetchSensors: PropTypes.func.isRequired,
+  sensors: PropTypes.arrayOf(
+    PropTypes.shape({
+      sensorId: PropTypes.number.isRequired,
+    }).isRequired
+  ).isRequired,
+};
 
-// function mapStateToProps(state) {
-//   return {
-//     isConfirmed: !!state.user.confirmed,
-//     sensors: allSensorsSelector(state)
-//   };
-// }
+function mapStateToProps(state) {
+  return {
+    sensors: state.sensors.data,
+  };
+}
 
-// export default connect(mapStateToProps, { fetchSensors })(DashboardPage);
-export default DashboardPage;
+export default connect(mapStateToProps, { fetchSensors })(DashboardPage);
