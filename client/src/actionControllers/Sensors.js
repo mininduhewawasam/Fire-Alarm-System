@@ -20,6 +20,7 @@ export const fetchSensors = () => (dispatch) =>
     sensors.forEach((sensor) => {
       const sensorData = {
         sensorId: sensor.id,
+        sensorName:sensor.name,
         status: sensor.status,
         roomNo: sensor.Room.roomNo,
         floorNo: sensor.Floor.floorNo,

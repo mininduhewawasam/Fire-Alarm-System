@@ -36,7 +36,7 @@ class DashboardPage extends React.Component {
                           src="add red image"
                         />
                       )}
-                      <Card.Header>{sensor.name ? sensor.name : "N/A"}</Card.Header>
+                      <Card.Header>{sensor.sensorName ? sensor.sensorName : "N/A"}</Card.Header>
                       <Card.Description>
                         Sensor Status : <strong>{sensor.status ? sensor.status : "N/A"}</strong><br/>
                         Room Number   : <strong>{sensor.roomNo ? sensor.roomNo : "N/A"}</strong><br/>
