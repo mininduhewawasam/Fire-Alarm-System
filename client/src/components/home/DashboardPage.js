@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import DeleteModal from "./DeleteModal";
+// import DeleteModal from "./DeleteModal";
 import { fetchSensors } from "../../actionControllers/sensors";
 import { Card, Button, Image } from "semantic-ui-react";
 import Inactive from './Inactive.png';
