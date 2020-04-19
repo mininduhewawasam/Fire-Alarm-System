@@ -13,6 +13,16 @@ router.post('/sensor',
 SensorController.createNewSensor
 );
 
+router.put('/sensor',
+[auth],
+SensorController.updateSensor
+);
+
+router.delete('/sensor',
+[auth],
+SensorController.deleteSensor
+);
+
 router.get('/sensor',
 SensorController.getAllSensors
 );

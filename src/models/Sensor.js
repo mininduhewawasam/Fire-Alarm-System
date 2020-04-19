@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
             ownerId: DataTypes.INTEGER,
             locationId: DataTypes.INTEGER,
             floorId: DataTypes.INTEGER,
+            name: DataTypes.STRING,
         },
         {
             paranoid: true,

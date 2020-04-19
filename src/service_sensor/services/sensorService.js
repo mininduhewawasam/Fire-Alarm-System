@@ -59,6 +59,44 @@ class SensorService {
         }
     }
 
+    async updateSensor(sensorData) {
+        try {
+            const sensor = await this._getSensorById (sensorData.sensorId);
+            if (sensor) {
+                const updatedSensor = await this._updateSensor(sensorData);
+                if (updatedSensor) {
+                    return updatedSensor;
+                } else {
+                    return Enums.ErrorResponses.DATA_ERROR;
+                }
+            } else {
+                return Enums.ErrorResponses.DATA_ERROR;
+            }
+        } catch (e) {
+            logger.error('LocationService.updateSensor ' + e);
+            return Enums.ErrorResponses.SERVER_ERROR
+        }
+    }
+
+    async deleteSensor(sensorData) {
+        try {
+            const sensor = await this._getSensorById (sensorData.sensorId);
+            if (sensor) {
+                const deletedSensor = await this._deleteSensor(sensorData);
+                if (deletedSensor) {
+                    return deletedSensor;
+                } else {
+                    return Enums.ErrorResponses.DATA_ERROR;
+                }
+            } else {
+                return Enums.ErrorResponses.DATA_ERROR;
+            }
+        } catch (e) {
+            logger.error('LocationService.deleteSensor ' + e);
+            return Enums.ErrorResponses.SERVER_ERROR
+        }
+    }
+
     async _getAllSensors (args) {
         const options = {
             order: [['id', 'DESC']]
@@ -112,6 +150,27 @@ class SensorService {
 
     async _createSensor (sendorData) {
         const sensor = await Sensor.create(sendorData)
+        return sensor;
+    }
+
+    async _updateSensor (data) {   
+        const sensor = await Sensor.update(
+            {
+                roomId: data.roomId,
+                ownerId: data.ownerId,
+                locationId: data.locationId,
+                floorId: data.floorId,
+                name: data.name
+           },
+           { where: { id: data.sensorId }}
+           );
+        return sensor;
+    }
+
+    async _deleteSensor (data) {
+        const sensor = await Sensor.destroy(
+           { where: { id: data.sensorId }}
+           );
         return sensor;
     }
 
