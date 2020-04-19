@@ -24,8 +24,12 @@ export const fetchSensors = () => (dispatch) =>
         roomNo: sensor.Room.roomNo,
         floorNo: sensor.Floor.floorNo,
         locationName: sensor.Location.name,
-        co2Value: sensor.SensorData[0].co2Level,
-        smokeLevel: sensor.SensorData[0].smokeLevel
+        co2Value: sensor.SensorData[0]
+          ? sensor.SensorData[0].co2Level
+          : null,
+        smokeLevel: sensor.SensorData[0]
+          ? sensor.SensorData[0].smokeLevel
+          : null,
       };
       sensorBundle.push(sensorData);
     });

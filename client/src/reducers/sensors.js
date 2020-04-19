@@ -4,8 +4,8 @@ import { SENSORS_FETCHED, SENSORS_CREATED } from "../types";
 export default function sensors(state = {}, action = {}) {
   switch (action.type) {
     case SENSORS_FETCHED:
-      console.log(action) 
-    return { ...state, ...action.data};
+      console.log(action.data)
+    return { ...state, sensors: action.data};
     case SENSORS_CREATED:
       return { ...state, ...action.data.sensor };
     default:
