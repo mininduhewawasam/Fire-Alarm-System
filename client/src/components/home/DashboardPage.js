@@ -14,9 +14,9 @@ class DashboardPage extends React.Component {
       <div className="page-wrapper">
         <Card.Group itemsPerRow={4}>
           {this.props.sensors &&
-            this.props.sensors.map((sensor) => {
+            this.props.sensors.map((sensor,index) => {
               return (
-                <Card>
+                <Card key={index}>
                   <Card.Content>
                     {sensor.status && sensor.status === 1 ? (
                       <Image floated="right" size="mini" src={Active} />
@@ -74,11 +74,10 @@ DashboardPage.propTypes = {
     PropTypes.shape({
       sensorId: PropTypes.number.isRequired,
     }).isRequired
-  ).isRequired,
+  )
 };
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     sensors: state.sensors.sensors,
   };

@@ -1,11 +1,10 @@
 import { createSelector } from "reselect";
-import { SENSORS_FETCHED} from "../types";
+import { SENSORS_FETCHED } from "../types";
 
 export default function sensors(state = {}, action = {}) {
   switch (action.type) {
     case SENSORS_FETCHED:
-      console.log(action.data)
-    return { ...state, sensors: action.data};
+      return { ...state, sensors: action.data };
     default:
       return state;
   }
@@ -13,8 +12,8 @@ export default function sensors(state = {}, action = {}) {
 
 // SELECTORS
 
-export const sensorSelector = state => state.sensors;
+export const sensorSelector = (state) => state.sensors;
 
-export const allSensorsSelector = createSelector(sensorSelector, sensorHash =>
+export const allSensorsSelector = createSelector(sensorSelector, (sensorHash) =>
   Object.values(sensorHash)
 );

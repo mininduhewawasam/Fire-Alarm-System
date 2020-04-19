@@ -22,14 +22,12 @@ TopNavigation.propTypes = {
   user: PropTypes.shape({
     email: PropTypes.string.isRequired
   }).isRequired,
-  sensors: PropTypes.bool.isRequired,
   logout: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    user: state.user,
-    sensors: state.sensors
+    user: state.user
   };
 }
 
