@@ -7,13 +7,17 @@ import * as actions from "../../actionControllers/auth";
 
 const TopNavigation = ({ user, logout, hasSensors }) => (
     <div className="TopNavigation">
-        <div className="logout">
-            <p onClick={() => logout()}>Logout</p>
-        </div>
-        <Menu fluid vertical tabular>
+        <Menu>
             <Menu.Item as={Link} to="/dashboard">
               Dashboard
             </Menu.Item>
+            <Menu.Menu position='right'>
+                <Menu.Item
+                    className="logout"
+                    name='Logout'
+                    onClick={() => logout()}
+                />
+            </Menu.Menu>
         </Menu>
     </div>
 );

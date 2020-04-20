@@ -1,22 +1,36 @@
-.logout p{
-    cursor: pointer;
+.TopNavigation .ui.menu{
+    height: 50px;
+    background: #e25822;
+    padding: 5px 70px;
 }
 
-.TopNavigation{
-    min-height: 100vh;
-    background: #e25822;
-    position: fixed;
-    padding: 0 !important;
-    width: 120px;
-    top:0;
-    left:0;
-    bottom: 0;
+.TopNavigation .ui.menu .item{
+    color:#fff;
+    background: #ab4118;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+.TopNavigation .ui.menu .item:hover{
+    color:#fff;
+    background: #88442a;
 }
 
 .main-content-wrapper{
-    margin: 0 0 0 120px;
+    padding: 0 50px;
 }
 
 .tabular.menu .item{
     color:#fff !important;
+}
+
+.page-wrapper{
+    padding: 30px 30px;
+}
+
+.ui.card .content.dangerLevel{
+    border-left:1px solid red !important;
+    border-right:1px solid red !important;
+    border-top:1px solid red !important;
+    border-bottom:1px solid red !important;
 }

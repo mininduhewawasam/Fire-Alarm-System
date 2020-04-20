@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { fetchSensors } from "../../actionControllers/sensors";
+import { fetchSensors } from "../../actionControllers/Sensors";
 import { Card, Image } from "semantic-ui-react";
 import Inactive from "./Inactive.png";
 import Active from "./active.jpg";
@@ -17,7 +17,7 @@ class DashboardPage extends React.Component {
             this.props.sensors.map((sensor,index) => {
               return (
                 <Card key={index}>
-                  <Card.Content>
+                  <Card.Content className={((sensor.smokeLevel && sensor.co2Value) >=2 ? 'dangerLevel' : 'noDanger' )}>
                     {sensor.status && sensor.status === 1 ? (
                       <Image floated="right" size="mini" src={Active} />
                     ) : (
