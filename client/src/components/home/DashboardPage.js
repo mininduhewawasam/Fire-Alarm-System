@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { fetchSensors } from "../../actionControllers/Sensors";
+import { fetchSensors } from "../../actionControllers/sensors";
 import { Card, Image } from "semantic-ui-react";
 import Inactive from "./Inactive.png";
 import Active from "./active.jpg";
