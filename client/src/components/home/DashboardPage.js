@@ -17,7 +17,7 @@ class DashboardPage extends React.Component {
             this.props.sensors.map((sensor,index) => {
               return (
                 <Card key={index}>
-                  <Card.Content className={((sensor.smokeLevel && sensor.co2Value) >=2 ? 'dangerLevel' : 'noDanger' )}>
+                  <Card.Content className={((sensor.smokeLevel || sensor.co2Value) >=5 ? 'dangerLevel' : 'noDanger' )}>
                     {sensor.status && sensor.status === 1 ? (
                       <Image floated="right" size="mini" src={Active} />
                     ) : (
@@ -29,11 +29,7 @@ class DashboardPage extends React.Component {
                     <Card.Description>
                       Sensor Status :
                       <strong>
-                        {sensor.status
-                          ? sensor.status === 0
-                            ? false
-                            : true
-                          : "N/A"}
+                        {sensor.status === 0 ? "Deactivate" : "Active"}
                       </strong>
                       <br />
                       Room Number :{" "}
