@@ -24,18 +24,20 @@ class DashboardPage extends React.Component {
 
 
   render() {
+    
     return (
       <div className="page-wrapper dashboard">
         <Card.Group itemsPerRow={4}>
           {this.props.sensors &&
             this.props.sensors.map((sensor,index) => {
+              const notifyCondition=(sensor.smokeLevel >= 5) || (sensor.co2Value >= 5);
               return (
                 <Card key={index}>
-                  <Card.Content className={ (sensor.smokeLevel >= 5) || (sensor.co2Value >= 5)  ? 'dangerLevel' : 'noDanger' }>
-                    {sensor.status && sensor.status === 1 ? (
-                      <Image floated="right" size="mini" src={Active} />
-                    ) : (
+                  <Card.Content className={ notifyCondition  ? 'dangerLevel' : 'noDanger' }>
+                    {notifyCondition ? (
                       <Image floated="right" size="mini" src={Inactive} />
+                    ) : (
+                      <Image floated="right" size="mini" src={Active} />
                     )}
                     <Card.Header>
                       {sensor.sensorName ? sensor.sensorName : "N/A"}

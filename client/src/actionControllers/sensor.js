@@ -8,7 +8,7 @@ const sensorsFetched = (data) => ({
 
 
 export const fetchSensors = () => (dispatch) =>
-  api.sensors.fetchAll(localStorage.userId).then((sensors) => {
+  api.sensors.fetchAll().then((sensors) => {
     const sensorBundle = [];
     sensors.forEach((sensor) => {
       const sensorData = {
@@ -27,5 +27,6 @@ export const fetchSensors = () => (dispatch) =>
       };
       sensorBundle.push(sensorData);
     });
+    console.log(sensorBundle)
     dispatch(sensorsFetched(sensorBundle));
   });
