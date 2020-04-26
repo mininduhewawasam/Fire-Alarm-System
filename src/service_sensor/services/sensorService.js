@@ -186,6 +186,25 @@ class SensorService {
         return sensorData;
     }
 
+    async createSensorDataForAllSensors () {
+        const sensors = await this._getAllSensorsllSensors();
+        for (let i = 0; i < sensors.length; i++) {
+            sensors[i].co2Level = Math.floor(Math.random() * 10) + 1;
+            sensors[i].smokeLevel = Math.floor(Math.random() * 10) + 1;
+        }
+        return await SensorData.bulkCreate(
+            sensors
+        );
+    }
+     async _getAllSensorsllSensors () {
+         const sensor = await Sensor.findAll({
+             raw: true,
+             nest: true,
+             attributes: [['id', 'sensorId']]
+         });
+         return sensor;
+     }
+
 }
 
 module.exports = SensorService;

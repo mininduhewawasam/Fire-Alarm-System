@@ -1,5 +1,6 @@
 const morgan = require('morgan');
 const { logger } = require('./bootstrap/logger');
+require('./commands');
 const routes = require('./routes/api/routes');
 const express = require('express');
 const app = express();
