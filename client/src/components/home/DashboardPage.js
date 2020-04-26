@@ -7,17 +7,31 @@ import Inactive from "./Inactive.png";
 import Active from "./active.jpg";
 
 class DashboardPage extends React.Component {
-  componentDidMount = () => this.props.fetchSensors();
+  intervalID;
+
+  componentDidMount = () => {
+    this.props.fetchSensors();
+    this.intervalID = setInterval(this.props.fetchSensors, 10000);
+  };
+  
+  componentWillUnmount() {
+    /*
+      stop getData() from continuing to run even
+      after unmounting this component
+    */
+    clearInterval(this.intervalID);
+  }
+
 
   render() {
     return (
-      <div className="page-wrapper">
+      <div className="page-wrapper dashboard">
         <Card.Group itemsPerRow={4}>
           {this.props.sensors &&
             this.props.sensors.map((sensor,index) => {
               return (
                 <Card key={index}>
-                  <Card.Content className={((sensor.smokeLevel || sensor.co2Value) >=5 ? 'dangerLevel' : 'noDanger' )}>
+                  <Card.Content className={ (sensor.smokeLevel >= 5) || (sensor.co2Value >= 5)  ? 'dangerLevel' : 'noDanger' }>
                     {sensor.status && sensor.status === 1 ? (
                       <Image floated="right" size="mini" src={Active} />
                     ) : (
