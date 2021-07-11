@@ -1,7 +1,6 @@
-// const debug = require('debug')('app:startup');
-// const config = require('config');
 const morgan = require('morgan');
-const logger = require('./bootstrap/logger');
+const { logger } = require('./bootstrap/logger');
+require('./commands');
 const routes = require('./routes/api/routes');
 const express = require('express');
 const app = express();
@@ -18,6 +17,21 @@ app.use(function (req, res, next) {
     );
     next();
 })
+
+if (process.env.NODE_ENV === 'production') {
+
+    app.use(
+        express
+            .Router()
+            .use(routes)
+            .use(express.static('client/build'))
+            .use('*', function (req, res) {
+                sendFile(
+                    path.resolve(__dirname, '..', 'client', 'build', 'index.html')
+                );
+            })
+    );
+}
 app.use(morgan('tiny'));
 app.use(routes);
 

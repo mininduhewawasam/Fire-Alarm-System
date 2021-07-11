@@ -1,0 +1,52 @@
+.TopNavigation .ui.menu{
+    height: 50px;
+    background: #e25822;
+    padding: 5px 70px;
+}
+
+.TopNavigation .ui.menu .item{
+    color:#fff;
+    background: #ab4118;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+.TopNavigation .ui.menu .item:hover{
+    color:#fff;
+    background: #88442a;
+}
+
+.page-wrapper.dashboard{
+    padding-left: 50px;
+    padding-right: 50px;
+    background: url(/images/alarm.svg)no-repeat center center;
+    min-height: 100vh;
+}
+
+.tabular.menu .item{
+    color:#fff !important;
+}
+
+.page-wrapper{
+    padding: 30px 30px;
+}
+
+.ui.card, .ui.cards>.card{
+    background: rgba(255,255,255,0.9) !important;
+}
+
+.ui.card .content.dangerLevel{
+    border-left:1px solid red !important;
+    border-right:1px solid red !important;
+    border-top:1px solid red !important;
+    border-bottom:1px solid red !important;
+    box-shadow: 0 0 0 0.2rem rgba(225,83,97,.5);
+}
+
+.ui.card .content.noDanger{
+    border-left:1px solid #4BB543 !important;
+    border-right:1px solid #4BB543 !important;
+    border-top:1px solid #4BB543 !important;
+    border-bottom:1px solid #4BB543 !important;
+    box-shadow: 0 0 0 0.2rem rgba(75,181,67,.5);
+}
