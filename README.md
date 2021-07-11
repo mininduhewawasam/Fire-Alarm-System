@@ -1,7 +1,11 @@
-#project setup
+# Fire Alarm System
+
+A simple fire alarm system API developed using node.js/ Express.js/ MySQL
 
 ## Enviroment Variables
 copy .env sample into .env file and update variable values 
+
+## project setup
 
 #sequelize cli command
 
